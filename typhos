@@ -45,21 +45,30 @@ function router (path) {
 
 var proxy = http_proxy.createProxyServer({});
 
+function error404 (res) {
+	res.writeHead(404,{"Content-Type": "text/plain"});
+	res.write('Not Found');
+	res.end();
+}
+
 function requestHandler (req,res) {
 	var path = url.parse(req.url).pathname.split('/').slice(1);
+	
+	console.log('Request:', path);
 	
 	var servers = router(path);
 	
 	if (servers) {
 		var s = pickRandom(servers);
 		console.log('Found server:', s);
-		proxy.web(req,res,{ target: 'http://' + s });
+		proxy.web(req,res,{ target: 'http://' + s }, function (e) {
+			console.log('Error:', e);
+			error404(res);
+		});
 	}
 	else {
 		console.log('No routes found');
-		res.writeHead(404,{"Content-Type": "text/plain"});
-		res.write('Not Found');
-		res.end();
+		error404(res);
 	}
 	
 	// process.exit();
