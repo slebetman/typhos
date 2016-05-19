@@ -1,0 +1,13 @@
+{
+  "name": "typhos",
+  "version": "0.1.0",
+  "description": "Reverse proxy for microservices",
+  "main": "typhos",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "slebetman@gmail.com",
+  "license": "BSD-2-Clause"
+}
