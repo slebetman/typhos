@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "Reverse proxy for microservices",
   "main": "typhos",
-  "dependencies": {},
+  "dependencies": {
+    "http-proxy": "^1.13.3"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
