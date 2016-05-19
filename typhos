@@ -1,0 +1,55 @@
+#! /usr/bin/env node
+
+var http = require('http');
+var url = require('url');
+
+var routes = {
+	// "*": [
+	// 	"127.0.0.1:80",
+	// 	"127.0.0.2:80",
+	// 	"127.0.0.3:80"
+	// ],
+	"mango/jango" : [
+		"127.0.0.1:333"
+	],
+	"mango/*" : [
+		"127.0.0.1:444",
+		"127.0.0.2:444"
+	]
+}
+
+function router (req,res) {
+	var path = url.parse(req.url).pathname.split('/').slice(1);
+	var l = path.length;
+	
+	var totalpath = '';
+	var servers;
+	
+	for (var i=l; i>=0; i--) {
+		totalpath = path.slice(0,i).join('/');
+		servers = routes[totalpath];
+		if (!servers) {
+			servers = routes[totalpath + '/*'];
+		}
+		if (servers) {
+			break;
+		}
+	}
+	if (!servers) {
+		servers = routes['*'];
+	}
+	if (servers) {
+		console.log('Found servers:', servers);
+		res.end(JSON.stringify(servers));
+	}
+	else {
+		console.log('No routes found');
+		res.writeHead(404,{"Content-Type": "text/plain"});
+		res.write('Not Found');
+		res.end();
+	}
+	
+	process.exit();
+}
+
+http.createServer(router).listen(8888);
