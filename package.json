@@ -6,10 +6,17 @@
   "dependencies": {
     "http-proxy": "^1.13.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+  	"request": "*"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "slebetman@gmail.com",
-  "license": "BSD-2-Clause"
+  "license": "BSD-2-Clause",
+  "repository" :
+  {
+  	"type" : "git",
+  	"url" : "https://github.com/slebetman/typhos.git"
+  }
 }
