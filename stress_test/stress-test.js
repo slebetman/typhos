@@ -37,13 +37,15 @@ TestClient.prototype = {
 // var spinner = '.oOo';
 // var spinner = '.oO0Oo';
 // var spinner = '←↖↑↗→↘↓↙';
-var spinner = '◐◓◑◒◐◓◑◒';
+var spinner = '◐◓◑◒';
 var start = Date.now();
 var status = ' ...';
 var n = 0;
+var killer = 0;
 
 function displayStats () {
 	n = (n+1) % spinner.length;
+	killer = (killer+1) % 50;
 	
 	if (n == 0) {
 		var now = Date.now();
@@ -52,7 +54,13 @@ function displayStats () {
 		status = ' Requests per second: ' + Math.round(total / ((now - start)/1000)) + ', total: ' + total;
 	}
 	
-	process.stdout.write('\r ' + spinner[n] + status + '   ');
+	if (killer == 0) {
+		test_clients.shift().stop();
+		test_clients.push(new TestClient(target));
+		status += ' ##';
+	} 
+	
+	process.stdout.write('\r ' + spinner[n] + status + '     ');
 }
 
 for (var i=0; i<clients; i++) {
