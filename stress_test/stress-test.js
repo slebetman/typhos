@@ -16,11 +16,18 @@ function TestClient (url) {
 	this.run(url);
 }
 
+
+
 TestClient.prototype = {
 	run: function (url) {
 		var self = this;
 		
-		request(url,function(err,res,body){
+		request({
+			url: url,
+			agentOptions: {
+				keepAlive: true
+			}
+		},function(err,res,body){
 			success++;
 			
 			if (self.running) {
