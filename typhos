@@ -6,4 +6,4 @@ var router = require('./lib/router');
 var configserver = require('./lib/configserver');
 
 http.createServer(router.handler).listen(8888);
-http.createServer(configserver.handler).listen(6060);
+http.createServer(configserver.newHandler(router.routes)).listen(6060);
