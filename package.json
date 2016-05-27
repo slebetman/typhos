@@ -7,7 +7,11 @@
     "http-proxy": "^1.13.3"
   },
   "devDependencies": {
-  	"request": "*"
+  	"request": "*",
+  	"chai" : "*",
+  	"chai-stats" : "*",
+  	"mocha" : "*",
+  	"mocha-unfunk-reporter" : "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
