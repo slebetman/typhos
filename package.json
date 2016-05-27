@@ -7,20 +7,20 @@
     "http-proxy": "^1.13.3"
   },
   "devDependencies": {
-  	"request": "*",
-  	"chai" : "*",
-  	"chai-stats" : "*",
-  	"mocha" : "*",
-  	"mocha-unfunk-reporter" : "*"
+    "chai": "*",
+    "chai-stats": "*",
+    "mocha": "*",
+    "mocha-unfunk-reporter": "*",
+    "node-mocks-http": "^1.5.2",
+    "request": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "slebetman@gmail.com",
   "license": "BSD-2-Clause",
-  "repository" :
-  {
-  	"type" : "git",
-  	"url" : "https://github.com/slebetman/typhos.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/slebetman/typhos.git"
   }
 }
