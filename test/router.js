@@ -37,7 +37,7 @@ describe('Router',function(){
 			'default:82': 0
 		}
 		
-		for (var x=0; x<1000; x++) {
+		for (var x=0; x<3000; x++) {
 			result[router.route('/')] ++;
 		}
 		
