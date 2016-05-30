@@ -13,10 +13,10 @@ describe('Config Server',function(){
 	});
 	
 	function standardTestHandler(){
-		return configServer.newHandler({'a':'b'});
+		return configServer.newHandler({'a':['b']});
 	}
 	
-	function standardTest(method,url,params) {
+	function standardTest(method,url,params,handler) {
 		var opt = {
 			method: method,
 			url: url
@@ -26,8 +26,10 @@ describe('Config Server',function(){
 		}
 		var req = mockHttp.createRequest(opt);
 		var res = mockHttp.createResponse();
-		
-		var handler = standardTestHandler();
+
+		if (!handler) {
+			var handler = standardTestHandler();
+		}
 		
 		handler(req,res);
 		
@@ -42,6 +44,14 @@ describe('Config Server',function(){
 	it('should list routes',function(){
 		var response = standardTest('GET','/list');
 		var data = JSON.parse(response._getData());
-		expect(data).to.deep.equal({'a':'b'});
+		expect(data).to.deep.equal({'a':['b']});
+	});
+	
+	it('should be able to add routes',function(){
+		var handler = standardTestHandler();
+		standardTest('GET','/add?path=c&server=d',undefined,handler);
+		var response = standardTest('GET','/list',undefined,handler);
+		var data = JSON.parse(response._getData());
+		expect(data).to.deep.equal({'a':['b'],'c':['d']});
 	});
 });
