@@ -41,8 +41,8 @@ describe('Router',function(){
 			result[router.route('/')] ++;
 		}
 		
-		expect(result['default:80']/result['default:81']).to.be.closeTo(1,0.1);
-		expect(result['default:82']/result['default:81']).to.be.closeTo(1,0.1);
-		expect(result['default:80']/result['default:82']).to.be.closeTo(1,0.1);
+		expect(result['default:80']/result['default:81']).to.be.closeTo(1,0.15);
+		expect(result['default:82']/result['default:81']).to.be.closeTo(1,0.15);
+		expect(result['default:80']/result['default:82']).to.be.closeTo(1,0.15);
 	});
 });
