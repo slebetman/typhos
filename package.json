@@ -15,7 +15,7 @@
     "request": "*"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "slebetman@gmail.com",
   "license": "BSD-2-Clause",
