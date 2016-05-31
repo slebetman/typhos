@@ -1,5 +1,7 @@
 # Typhos
 
+![Logo](https://github.com/slebetman/typhos/raw/master/Typhos-Logo.png)
+
 [![Build Status](https://travis-ci.org/slebetman/typhos.svg?branch=master)](https://travis-ci.org/slebetman/typhos)
 
 Fast, load-balancing, front-end proxy for microservices
