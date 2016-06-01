@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 
 var http = require('http');
-var error404 = require('./lib/error404');
 var router = require('./lib/router');
+var server = require('./lib/server');
 var configserver = require('./lib/configserver');
 
-http.createServer(router.handler).listen(8888);
+http.createServer(server.newHandler(router)).listen(8888);
 http.createServer(configserver.newHandler(router.routes)).listen(6060);
