@@ -3,6 +3,7 @@ var chai = require('chai');
 var expect = chai.expect;
 
 var configServer = require('../lib/configserver.js');
+var Route = require('../lib/route');
 
 describe('Config Server',function(){
 	it('should generate new http handler',function(){
@@ -13,7 +14,9 @@ describe('Config Server',function(){
 	});
 	
 	function standardTestHandler(){
-		return configServer.newHandler({'a':['b']});
+		var r = new Route();
+		r.addServer('b');
+		return configServer.newHandler({'a':r});
 	}
 	
 	function browse(handler,method,url,params) {
@@ -60,18 +63,17 @@ describe('Config Server',function(){
 	});
 	
 	it('should be able to delete servers',function(){
-		var handler = configServer.newHandler({'a':['x','y'],'c':['d']});;
+		var r1 = new Route();
+		r1.addServer('x');
+		r1.addServer('y');
+		
+		var r2 = new Route();
+		r2.addServer('d');
+	
+		var handler = configServer.newHandler({'a':r1,'c':r2});;
 		browse(handler,'GET','/remove?path=a&server=x');
 		var response = browse(handler,'GET','/list');
 		var data = JSON.parse(response._getData());
 		expect(data).to.deep.equal({'a':['y'],'c':['d']});
-	});
-	
-	it('should delete route when last server is deleted',function(){
-		var handler = configServer.newHandler({'a':['y'],'c':['d']});;
-		browse(handler,'GET','/remove?path=a&server=y');
-		var response = browse(handler,'GET','/list');
-		var data = JSON.parse(response._getData());
-		expect(data).to.deep.equal({'c':['d']});
 	});
 });
