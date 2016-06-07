@@ -29,11 +29,11 @@ environments where services are provisioned and shut down dynamically.
 
 Returns a list of all active paths and servers
 
-### /add?path=<routing_path>&server=<server_url>
+### /add?path={routing_path}&server={server_url}
 
 Adds a server to the proxy. If the routing path does not exist it will be created.
 
-### /remove?path=<routing_path>&server=<server_url>
+### /remove?path={routing_path}&server={server_url}
 
 Removes a server from a routing path.
 
