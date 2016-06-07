@@ -3,7 +3,7 @@ var chai = require('chai');
 var expect = chai.expect;
 
 var configServer = require('../lib/configserver.js');
-var Route = require('../lib/route');
+var Balancer = require('../lib/balancer');
 
 describe('Config Server',function(){
 	it('should generate new http handler',function(){
@@ -14,7 +14,7 @@ describe('Config Server',function(){
 	});
 	
 	function standardTestHandler(){
-		var r = new Route();
+		var r = new Balancer();
 		r.addServer('b');
 		return configServer.newHandler({'a':r});
 	}
@@ -63,11 +63,11 @@ describe('Config Server',function(){
 	});
 	
 	it('should be able to delete servers',function(){
-		var r1 = new Route();
+		var r1 = new Balancer();
 		r1.addServer('x');
 		r1.addServer('y');
 		
-		var r2 = new Route();
+		var r2 = new Balancer();
 		r2.addServer('d');
 	
 		var handler = configServer.newHandler({'a':r1,'c':r2});;
