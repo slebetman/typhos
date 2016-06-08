@@ -33,6 +33,10 @@ Returns a list of all active paths and servers
 
 Adds a server to the proxy. If the routing path does not exist it will be created.
 
+### /new?path={routing_path}&server={server_url}
+
+Same as /add but checks for duplicates.
+
 ### /remove?path={routing_path}&server={server_url}
 
 Removes a server from a routing path.
