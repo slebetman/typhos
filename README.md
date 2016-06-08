@@ -38,4 +38,16 @@ Adds a server to the proxy. If the routing path does not exist it will be create
 Removes a server from a routing path.
 
 
+## FAQ
 
+1. What's with the name?
+
+    > I wanted to call it Hydra because it handles lots of connections (you know, many heads) but
+    > there are already several projects that use that name. Googling around for "many headed monster"
+    > I found Typhon - Hydra's father. But there is already a project on npm called Typhon. So Typhos,
+    > which is an alternate name/spelling for Typhon.
+
+2. What's with the logo?
+
+    > Snake heads - Typhos has hundreds of snake heads. Also it's abstract enough to not look like
+    > snake heads which is good because I have a phobia of snakes.
