@@ -16,6 +16,26 @@ describe('Balancer',function(){
 		expect(r.servers).to.deep.equal(['a']);
 	});
 	
+	it('should be able to add same server more than once',function(){
+		var r = new Balancer();
+		r.addServer('a');
+		r.addServer('a');
+		expect(r.servers).to.deep.equal(['a','a']);
+	});
+	
+	it('should be able to add new server without duplicate',function(){
+		var r = new Balancer();
+		r.newServer('a');
+		expect(r.servers).to.deep.equal(['a']);
+	});
+	
+	it('should not be able to add new server more than once',function(){
+		var r = new Balancer();
+		r.newServer('a');
+		r.newServer('a');
+		expect(r.servers).to.deep.equal(['a']);
+	});
+	
 	it('should be able to remove server url',function(){
 		var r = new Balancer();
 		r.servers = ['a','b','c'];

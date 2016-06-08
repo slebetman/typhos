@@ -62,6 +62,20 @@ describe('Config Server',function(){
 		expect(data).to.deep.equal({'a':['b','d']});
 	});
 	
+	it('should add new unique server to existing route',function(){
+		var handler = standardTestHandler();
+		
+		browse(handler,'GET','/new?path=a&server=d');
+		var response = browse(handler,'GET','/list');
+		var data = JSON.parse(response._getData());
+		expect(data).to.deep.equal({'a':['b','d']});
+		
+		browse(handler,'GET','/new?path=a&server=d');
+		var response = browse(handler,'GET','/list');
+		var data = JSON.parse(response._getData());
+		expect(data).to.deep.equal({'a':['b','d']});
+	});
+	
 	it('should be able to delete servers',function(){
 		var r1 = new Balancer();
 		r1.addServer('x');
