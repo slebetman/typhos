@@ -62,6 +62,20 @@ describe('Config Server',function(){
 		expect(data).to.deep.equal({'a':['b','d']});
 	});
 	
+	it('should add new unique server',function(){
+		var handler = standardTestHandler();
+		
+		browse(handler,'GET','/new?path=c&server=d');
+		var response = browse(handler,'GET','/list');
+		var data = JSON.parse(response._getData());
+		expect(data).to.deep.equal({'a':['b'],'c':['d']});
+		
+		browse(handler,'GET','/new?path=c&server=d');
+		var response = browse(handler,'GET','/list');
+		var data = JSON.parse(response._getData());
+		expect(data).to.deep.equal({'a':['b'],'c':['d']});
+	});
+	
 	it('should add new unique server to existing route',function(){
 		var handler = standardTestHandler();
 		
@@ -89,5 +103,17 @@ describe('Config Server',function(){
 		var response = browse(handler,'GET','/list');
 		var data = JSON.parse(response._getData());
 		expect(data).to.deep.equal({'a':['y'],'c':['d']});
+	});
+	
+	it('should return error if deleting server on route that does not exist',function(){
+		var r1 = new Balancer();
+		r1.addServer('y');
+		
+		var r2 = new Balancer();
+		r2.addServer('d');
+	
+		var handler = configServer.newHandler({'a':r1,'c':r2});;
+		var response = browse(handler,'GET','/remove?path=mango&server=x');
+		expect(response.statusCode).to.equal(404);
 	});
 });

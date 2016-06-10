@@ -1,9 +1,12 @@
 #! /usr/bin/env node
 
 var http = require('http');
+var http_proxy = require('http-proxy');
 var router = require('./lib/router');
 var server = require('./lib/server');
 var configserver = require('./lib/configserver');
 
-http.createServer(server.newHandler(router)).listen(8888);
+var proxy = http_proxy.createProxyServer({});
+
+http.createServer(server.newHandler(router,proxy)).listen(8888);
 http.createServer(configserver.newHandler(router.routes)).listen(6060);
