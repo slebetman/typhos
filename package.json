@@ -9,13 +9,16 @@
   "devDependencies": {
     "chai": "*",
     "chai-stats": "*",
+    "coveralls": "^2.11.9",
     "mocha": "*",
+	"istanbul":"*",
+    "mocha-lcov-reporter": "^1.2.0",
     "mocha-unfunk-reporter": "*",
     "node-mocks-http": "^1.5.2",
     "request": "*"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "author": "slebetman@gmail.com",
   "license": "BSD-2-Clause",
