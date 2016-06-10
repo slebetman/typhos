@@ -3,6 +3,7 @@
 Fast, load-balancing, front-end proxy for microservices
 
 [![Build Status](https://travis-ci.org/slebetman/typhos.svg?branch=master)](https://travis-ci.org/slebetman/typhos)
+[![Coverage Status](https://coveralls.io/repos/github/slebetman/typhos/badge.svg?branch=master)](https://coveralls.io/github/slebetman/typhos?branch=master)
 
 ## It's basically a proxy...
 
