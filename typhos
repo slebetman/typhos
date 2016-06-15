@@ -5,8 +5,19 @@ var http_proxy = require('http-proxy');
 var router = require('./lib/router');
 var server = require('./lib/server');
 var configserver = require('./lib/configserver');
+var parseConfig = require('./lib/arguments');
 
 var proxy = http_proxy.createProxyServer({});
 
-http.createServer(server.newHandler(router,proxy)).listen(8888);
-http.createServer(configserver.newHandler(router.routes)).listen(6060);
+try {
+	var conf = parseConfig(process.argv);
+}
+catch (e) {
+	console.log(e);
+	process.exit();
+}
+
+if (conf.server) {
+	http.createServer(server.newHandler(router,proxy)).listen(conf.port);
+	http.createServer(configserver.newHandler(router.routes)).listen(conf.configPort);
+}

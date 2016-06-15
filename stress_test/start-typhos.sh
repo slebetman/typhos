@@ -12,4 +12,4 @@ configure () {
 }
 
 configure &
-../typhos > /dev/null
+../typhos -s > /dev/null
