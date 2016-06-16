@@ -5,6 +5,7 @@ var expect = chai.expect;
 var server = require('../lib/server');
 var router = require('../lib/router');
 var Balancer = require('../lib/balancer');
+var testEnvironment = require('./test_env');
 
 function browse(handler,method,url,params) {
 	var opt = {
@@ -17,7 +18,9 @@ function browse(handler,method,url,params) {
 	var req = mockHttp.createRequest(opt);
 	var res = mockHttp.createResponse();
 
-	handler(req,res);
+	testEnvironment(function(){
+		handler(req,res);
+	});
 	
 	return res;
 }
