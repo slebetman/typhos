@@ -69,6 +69,6 @@ describe('Parse Arguments',function(){
 		});
 		
 		expect(result.exit).to.be.true;
-		expect(result.logs.length > 0).to.be.ok;
+		expect(result.logs.length).to.be.above(0);
 	});
 });
