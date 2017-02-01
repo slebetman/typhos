@@ -6,11 +6,11 @@ var router = require('./lib/router');
 var server = require('./lib/server');
 var configserver = require('./lib/configserver');
 var parseConfig = require('./lib/arguments');
-
-var proxy = http_proxy.createProxyServer({});
+var cluster = require('cluster');
+var Balancer = require('./lib/balancer');
 
 try {
-	var conf = parseConfig(process.argv);
+	var conf = parseConfig(process.argv.slice());
 }
 catch (e) {
 	console.log(e);
@@ -18,6 +18,39 @@ catch (e) {
 }
 
 if (conf.server) {
-	http.createServer(server.newHandler(router,proxy)).listen(conf.port);
-	http.createServer(configserver.newHandler(router.routes)).listen(conf.configPort);
+	if (cluster.isMaster) {
+		for (var i = 0; i < conf.cluster; i++) {
+			cluster.fork();
+		}
+		
+		http.createServer(configserver.newHandler(router.routes,cluster)).listen(conf.configPort);
+	}
+	else {
+		var url = require('url');
+		var q = require('querystring');
+		var proxy = http_proxy.createProxyServer({});
+		
+		process.on('message',function(msg) {
+			switch (msg.cmd) {
+				case 'add':
+					if (!router.routes[msg.path]) {
+						router.routes[msg.path] = new Balancer();
+					}
+					router.routes[msg.path].addServer(msg.server);
+					break;
+				case 'new':
+					if (!router.routes[msg.path]) {
+						router.routes[msg.path] = new Balancer();
+					}
+					router.routes[msg.path].newServer(msg.server);
+					break;
+				case 'remove':
+					if (router.routes[msg.path]) {
+						routes[msg.path].removeServer(msg.server);
+					}
+					break;
+			}
+		});
+		http.createServer(server.newHandler(router,proxy)).listen(conf.port);
+	}
 }
