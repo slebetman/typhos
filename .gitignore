@@ -1,2 +1,3 @@
 node_modules
 stress_test/*stats*
+coverage
